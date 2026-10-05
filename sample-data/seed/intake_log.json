@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "purpose": "Append-only record of every file ever received through the Inbox. The sha256 column is the dedup index; nothing is ever rewritten."
+  },
+  "entries": []
+}

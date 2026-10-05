@@ -1,0 +1,6 @@
+# Normalize text to LF so the demo output is identical on every OS.
+* text=auto eol=lf
+
+# The sample PDFs are hashed (SHA-256) in the manifest and intake log, so their
+# bytes must never be rewritten by line-ending conversion.
+*.pdf binary

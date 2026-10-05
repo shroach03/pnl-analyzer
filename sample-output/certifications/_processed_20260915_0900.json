@@ -1,0 +1,71 @@
+{
+  "written_by": "agent sweep",
+  "sweep_date": "2026-09-15",
+  "trash": [
+    {
+      "drive_file_id": "local:20260908_c1e15fbd_Riverside_Aug2026_Financials.pdf",
+      "title": "20260908_c1e15fbd_Riverside_Aug2026_Financials.pdf",
+      "reason": "filed"
+    },
+    {
+      "drive_file_id": "local:20260908_c1e15fbd_GL_Detail_Aug2026.pdf",
+      "title": "20260908_c1e15fbd_GL_Detail_Aug2026.pdf",
+      "reason": "filed"
+    },
+    {
+      "drive_file_id": "local:20260909_fbc5b4bd_Lakeside_P&L_2026-08.pdf",
+      "title": "20260909_fbc5b4bd_Lakeside_P&L_2026-08.pdf",
+      "reason": "filed"
+    },
+    {
+      "drive_file_id": "local:20260909_fbc5b4bd_Lakeside_GL_2026-08.pdf",
+      "title": "20260909_fbc5b4bd_Lakeside_GL_2026-08.pdf",
+      "reason": "filed"
+    },
+    {
+      "drive_file_id": "local:20260910_6d743faa_BankRec_Aug.pdf",
+      "title": "20260910_6d743faa_BankRec_Aug.pdf",
+      "reason": "filed"
+    },
+    {
+      "drive_file_id": "local:20260910_6d743faa_GL_Detail_Aug2026.pdf",
+      "title": "20260910_6d743faa_GL_Detail_Aug2026.pdf",
+      "reason": "duplicate"
+    },
+    {
+      "drive_file_id": "local:20260911_c7feb29a_Hilltop P&L Aug 2026.pdf",
+      "title": "20260911_c7feb29a_Hilltop P&L Aug 2026.pdf",
+      "reason": "filed"
+    },
+    {
+      "drive_file_id": "local:20260911_c7feb29a_Hilltop GL Aug 2026.pdf",
+      "title": "20260911_c7feb29a_Hilltop GL Aug 2026.pdf",
+      "reason": "filed"
+    },
+    {
+      "drive_file_id": "local:20260911_c7feb29a_Hilltop Bank Rec Aug 2026.pdf",
+      "title": "20260911_c7feb29a_Hilltop Bank Rec Aug 2026.pdf",
+      "reason": "filed"
+    },
+    {
+      "drive_file_id": "local:20260912_f3f71406_IMG_0912_scan.pdf",
+      "title": "20260912_f3f71406_IMG_0912_scan.pdf",
+      "reason": "quarantined"
+    },
+    {
+      "drive_file_id": "local:Stores/S02/2026-08/S02_FR_2026-08.pdf@df6ea0c2",
+      "title": "S02_FR_2026-08.pdf",
+      "reason": "superseded_old_canonical"
+    },
+    {
+      "drive_file_id": "local:20260912_3bdb791c_Hilltop P&L Aug 2026 REVISED.pdf",
+      "title": "20260912_3bdb791c_Hilltop P&L Aug 2026 REVISED.pdf",
+      "reason": "filed"
+    },
+    {
+      "drive_file_id": "local:LINK_ONLY_20260913_dae9c274.txt",
+      "title": "LINK_ONLY_20260913_dae9c274.txt",
+      "reason": "link_only_logged"
+    }
+  ]
+}

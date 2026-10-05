@@ -1,0 +1,72 @@
+# ------------------------------------------------------------------
+# Financial data: never committed
+# Real documents, baselines and reports live in data/ (or on Drive).
+# Only the synthetic demo folders are allowed through (see bottom).
+# ------------------------------------------------------------------
+/data/
+/Inbox/
+/Stores/
+/Quarantine/
+/Reports/
+/Portfolio/
+/baselines/
+/rollback/
+/certifications/
+intake_log*.json
+hash_migration_map.json
+_manifest*
+stores_registry.json
+*.pdf
+*.xlsx
+*.xls
+*.csv
+*.zip
+
+# ------------------------------------------------------------------
+# Credentials and local config
+# ------------------------------------------------------------------
+.env
+.env.*
+.clasprc.json
+.clasp.json
+*.pem
+*.key
+credentials*.json
+token*.json
+service-account*.json
+
+# ------------------------------------------------------------------
+# Node (clasp)
+# ------------------------------------------------------------------
+node_modules/
+npm-debug.log*
+
+# ------------------------------------------------------------------
+# Python
+# ------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+
+# ------------------------------------------------------------------
+# OS and editor
+# ------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# ------------------------------------------------------------------
+# Synthetic demo data: explicitly allowed
+# ------------------------------------------------------------------
+!sample-data/**/*.pdf
+!sample-data/**/*.csv
+!sample-data/**/intake_log.json
+!sample-data/**/stores_registry.json
+!sample-output/**/*.pdf
+!sample-output/**/intake_log.json
+!sample-output/**/stores_registry.json

@@ -1,0 +1,58 @@
+[
+  {
+    "store_id": "S01",
+    "severity": "high",
+    "category": "Red flag",
+    "account": "5010",
+    "amount": 1284.5,
+    "title": "Possible duplicate payment: Prairie Produce Co INV-44817"
+  },
+  {
+    "store_id": "S01",
+    "severity": "medium",
+    "category": "Variance",
+    "account": "6110",
+    "amount": 4559.07,
+    "title": "Repairs & Maintenance above baseline"
+  },
+  {
+    "store_id": "S01",
+    "severity": "medium",
+    "category": "Variance",
+    "account": "6015",
+    "amount": 2052.47,
+    "title": "Overtime above baseline"
+  },
+  {
+    "store_id": "S01",
+    "severity": "medium",
+    "category": "Red flag",
+    "account": "6110",
+    "amount": 950.0,
+    "title": "Unusual payment to QuickFix Handyman LLC: vendor not seen in prior months; check dated on a Sunday"
+  },
+  {
+    "store_id": "S01",
+    "severity": "medium",
+    "category": "Red flag",
+    "account": null,
+    "amount": 612.4,
+    "title": "Outstanding check #10211 is 111 days old (carried item OI-2026-05-A, escalated)"
+  },
+  {
+    "store_id": "S02",
+    "severity": "high",
+    "category": "Red flag",
+    "account": null,
+    "amount": 45.0,
+    "title": "Bank reconciliation does not balance"
+  },
+  {
+    "store_id": "S02",
+    "severity": "medium",
+    "category": "Variance",
+    "account": "6140",
+    "amount": 1502.57,
+    "title": "Local Marketing above baseline"
+  }
+]

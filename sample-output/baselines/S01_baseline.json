@@ -1,0 +1,798 @@
+{
+  "meta": {
+    "store_id": "S01",
+    "entity": "Riverside Foods LLC (store #1101, 120 RIVER RD, RIVERSIDE)",
+    "registry_file": "stores_registry.json",
+    "baseline_built_from": "2026-02 to 2026-08 (FR, BR, GL)",
+    "last_closed_month": "2026-08",
+    "last_updated": "2026-09-15",
+    "instructions": "Updated after every monthly review: append this month to monthly_history, refresh the guardrails, resolve or carry forward every open item. Never drop keys."
+  },
+  "monthly_history": {
+    "net_sales": {
+      "2026-02": 111099.55,
+      "2026-03": 108409.66,
+      "2026-04": 111878.89,
+      "2026-05": 110965.11,
+      "2026-06": 114692.04,
+      "2026-07": 118530.61,
+      "2026-08": 114254.18
+    },
+    "net_income": {
+      "2026-02": 14625.11,
+      "2026-03": 14255.24,
+      "2026-04": 15658.03,
+      "2026-05": 14961.3,
+      "2026-06": 15155.08,
+      "2026-07": 15685.0,
+      "2026-08": 7983.38
+    },
+    "pnl_lines": {
+      "2026-02": {
+        "4010": 81209.82,
+        "4020": 31581.6,
+        "4090": -1691.87,
+        "5010": 29342.35,
+        "5020": 5046.07,
+        "5030": 3717.35,
+        "6010": 21850.92,
+        "6015": 871.63,
+        "6020": 6400.0,
+        "6030": 4758.98,
+        "6110": 1432.4,
+        "6120": 3229.53,
+        "6130": 1344.66,
+        "6140": 1095.86,
+        "6150": 2619.71,
+        "6210": 7500.0,
+        "6220": 1070.0,
+        "6230": 640.0,
+        "6240": 5554.98
+      },
+      "2026-03": {
+        "4010": 79243.61,
+        "4020": 30816.96,
+        "4090": -1650.91,
+        "5010": 28120.74,
+        "5020": 4783.34,
+        "5030": 3719.97,
+        "6010": 21427.96,
+        "6015": 874.94,
+        "6020": 6400.0,
+        "6030": 4659.85,
+        "6110": 1405.03,
+        "6120": 3186.74,
+        "6130": 1291.23,
+        "6140": 1073.4,
+        "6150": 2580.74,
+        "6210": 7500.0,
+        "6220": 1070.0,
+        "6230": 640.0,
+        "6240": 5420.48
+      },
+      "2026-04": {
+        "4010": 81779.49,
+        "4020": 31803.14,
+        "4090": -1703.74,
+        "5010": 29088.64,
+        "5020": 4963.81,
+        "5030": 3749.73,
+        "6010": 21717.93,
+        "6015": 889.04,
+        "6020": 6400.0,
+        "6030": 4743.17,
+        "6110": 1474.83,
+        "6120": 3206.72,
+        "6130": 1345.53,
+        "6140": 1125.24,
+        "6150": 2712.28,
+        "6210": 7500.0,
+        "6220": 1070.0,
+        "6230": 640.0,
+        "6240": 5593.94
+      },
+      "2026-05": {
+        "4010": 81111.55,
+        "4020": 31543.38,
+        "4090": -1689.82,
+        "5010": 28771.63,
+        "5020": 4923.54,
+        "5030": 3726.63,
+        "6010": 21965.45,
+        "6015": 896.22,
+        "6020": 6400.0,
+        "6030": 4728.51,
+        "6110": 1415.33,
+        "6120": 3248.71,
+        "6130": 1358.0,
+        "6140": 1130.91,
+        "6150": 2680.62,
+        "6210": 7500.0,
+        "6220": 1070.0,
+        "6230": 640.0,
+        "6240": 5548.26
+      },
+      "2026-06": {
+        "4010": 80342.65,
+        "4020": 36095.97,
+        "4090": -1746.58,
+        "5010": 29478.9,
+        "5020": 5101.57,
+        "5030": 3852.72,
+        "6010": 23149.07,
+        "6015": 931.6,
+        "6020": 6400.0,
+        "6030": 4905.13,
+        "6110": 1471.73,
+        "6120": 3983.31,
+        "6130": 1381.37,
+        "6140": 1154.55,
+        "6150": 2782.41,
+        "6210": 7500.0,
+        "6220": 1070.0,
+        "6230": 640.0,
+        "6240": 5734.6
+      },
+      "2026-07": {
+        "4010": 83031.59,
+        "4020": 37304.05,
+        "4090": -1805.03,
+        "5010": 30778.24,
+        "5020": 5366.92,
+        "5030": 4026.52,
+        "6010": 23928.41,
+        "6015": 966.49,
+        "6020": 6400.0,
+        "6030": 5116.35,
+        "6110": 1529.15,
+        "6120": 4142.07,
+        "6130": 1410.93,
+        "6140": 1164.18,
+        "6150": 2879.82,
+        "6210": 7500.0,
+        "6220": 1070.0,
+        "6230": 640.0,
+        "6240": 5926.53
+      },
+      "2026-08": {
+        "4010": 80035.92,
+        "4020": 35958.17,
+        "4090": -1739.91,
+        "5010": 31219.1,
+        "5020": 5141.44,
+        "5030": 3884.64,
+        "6010": 22622.33,
+        "6015": 2970.61,
+        "6020": 6400.0,
+        "6030": 4912.93,
+        "6110": 6035.3,
+        "6120": 3976.05,
+        "6130": 1371.05,
+        "6140": 1142.54,
+        "6150": 2742.1,
+        "6210": 7500.0,
+        "6220": 0.0,
+        "6230": 640.0,
+        "6240": 5712.71
+      }
+    },
+    "delivery_lag_days": {
+      "2026-02": 9,
+      "2026-03": 11,
+      "2026-04": 8,
+      "2026-05": 10,
+      "2026-06": 12,
+      "2026-07": 9,
+      "2026-08": 10
+    },
+    "packet_status": {
+      "2026-02": "complete",
+      "2026-03": "complete",
+      "2026-04": "complete",
+      "2026-05": "complete",
+      "2026-06": "complete",
+      "2026-07": "complete",
+      "2026-08": "complete"
+    },
+    "normalizations": {
+      "2026-07": [
+        "6220: duplicate July premium ($1,070.00) excluded pending OI-2026-07-A"
+      ]
+    }
+  },
+  "ratio_guardrails_pct_of_net_sales": {
+    "5010": {
+      "label": "Food Cost",
+      "months": [
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08"
+      ],
+      "observed": [
+        25.94,
+        26.0,
+        25.93,
+        25.7,
+        25.97,
+        27.32
+      ],
+      "normal_range": [
+        25.7,
+        27.32
+      ]
+    },
+    "5020": {
+      "label": "Beverage Cost",
+      "months": [
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08"
+      ],
+      "observed": [
+        4.41,
+        4.44,
+        4.44,
+        4.45,
+        4.53,
+        4.5
+      ],
+      "normal_range": [
+        4.41,
+        4.53
+      ]
+    },
+    "5030": {
+      "label": "Paper & Packaging",
+      "months": [
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08"
+      ],
+      "observed": [
+        3.43,
+        3.35,
+        3.36,
+        3.36,
+        3.4,
+        3.4
+      ],
+      "normal_range": [
+        3.35,
+        3.43
+      ]
+    },
+    "6010": {
+      "label": "Crew Wages",
+      "months": [
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08"
+      ],
+      "observed": [
+        19.77,
+        19.41,
+        19.79,
+        20.18,
+        20.19,
+        19.8
+      ],
+      "normal_range": [
+        19.41,
+        20.19
+      ]
+    },
+    "6015": {
+      "label": "Overtime",
+      "months": [
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08"
+      ],
+      "observed": [
+        0.81,
+        0.79,
+        0.81,
+        0.81,
+        0.82,
+        2.6
+      ],
+      "normal_range": [
+        0.79,
+        2.6
+      ]
+    },
+    "6020": {
+      "label": "Management Salaries",
+      "months": [
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08"
+      ],
+      "observed": [
+        5.9,
+        5.72,
+        5.77,
+        5.58,
+        5.4,
+        5.6
+      ],
+      "normal_range": [
+        5.4,
+        5.9
+      ]
+    },
+    "6030": {
+      "label": "Payroll Taxes & Benefits",
+      "months": [
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08"
+      ],
+      "observed": [
+        4.3,
+        4.24,
+        4.26,
+        4.28,
+        4.32,
+        4.3
+      ],
+      "normal_range": [
+        4.24,
+        4.32
+      ]
+    },
+    "6110": {
+      "label": "Repairs & Maintenance",
+      "months": [
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08"
+      ],
+      "observed": [
+        1.3,
+        1.32,
+        1.28,
+        1.28,
+        1.29,
+        5.28
+      ],
+      "normal_range": [
+        1.28,
+        5.28
+      ]
+    },
+    "6120": {
+      "label": "Utilities",
+      "months": [
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08"
+      ],
+      "observed": [
+        2.94,
+        2.87,
+        2.93,
+        3.47,
+        3.49,
+        3.48
+      ],
+      "normal_range": [
+        2.87,
+        3.49
+      ]
+    },
+    "6130": {
+      "label": "Operating Supplies",
+      "months": [
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08"
+      ],
+      "observed": [
+        1.19,
+        1.2,
+        1.22,
+        1.2,
+        1.19,
+        1.2
+      ],
+      "normal_range": [
+        1.19,
+        1.22
+      ]
+    },
+    "6140": {
+      "label": "Local Marketing",
+      "months": [
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08"
+      ],
+      "observed": [
+        0.99,
+        1.01,
+        1.02,
+        1.01,
+        0.98,
+        1.0
+      ],
+      "normal_range": [
+        0.98,
+        1.02
+      ]
+    },
+    "6150": {
+      "label": "Card Processing Fees",
+      "months": [
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08"
+      ],
+      "observed": [
+        2.38,
+        2.42,
+        2.42,
+        2.43,
+        2.43,
+        2.4
+      ],
+      "normal_range": [
+        2.38,
+        2.43
+      ]
+    },
+    "6210": {
+      "label": "Rent",
+      "months": [
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08"
+      ],
+      "observed": [
+        6.92,
+        6.7,
+        6.76,
+        6.54,
+        6.33,
+        6.56
+      ],
+      "normal_range": [
+        6.33,
+        6.92
+      ]
+    },
+    "6220": {
+      "label": "Insurance",
+      "months": [
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08"
+      ],
+      "observed": [
+        0.99,
+        0.96,
+        0.96,
+        0.93,
+        0.9,
+        0.0
+      ],
+      "normal_range": [
+        0.0,
+        0.99
+      ]
+    },
+    "6230": {
+      "label": "Property Tax",
+      "months": [
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08"
+      ],
+      "observed": [
+        0.59,
+        0.57,
+        0.58,
+        0.56,
+        0.54,
+        0.56
+      ],
+      "normal_range": [
+        0.54,
+        0.59
+      ]
+    },
+    "6240": {
+      "label": "Royalty & Brand Fund",
+      "months": [
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08"
+      ],
+      "observed": [
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "normal_range": [
+        5.0,
+        5.0
+      ]
+    }
+  },
+  "vendor_baselines": {
+    "BRAND ROYALTY REMITTANCE": {
+      "role": "royalty + brand fund",
+      "accounts": [
+        "6240"
+      ]
+    },
+    "CITY POWER & LIGHT": {
+      "role": "utilities",
+      "accounts": [
+        "6120"
+      ]
+    },
+    "CLEANLINE JANITORIAL SUPPLY": {
+      "role": "operating supplies",
+      "accounts": [
+        "6130"
+      ]
+    },
+    "CLEARWATER BEVERAGE DIST.": {
+      "role": "beverage cost",
+      "accounts": [
+        "5020"
+      ]
+    },
+    "COLDLINE REFRIGERATION SVC": {
+      "role": "repairs & maintenance",
+      "accounts": [
+        "6110"
+      ]
+    },
+    "COUNTY TAX ESCROW": {
+      "role": "property tax",
+      "accounts": [
+        "6230"
+      ]
+    },
+    "FERN VALLEY WASTE SERVICES": {
+      "role": "waste removal",
+      "accounts": [
+        "6130"
+      ]
+    },
+    "HOMETOWN PRINT & SIGNS": {
+      "role": "local marketing",
+      "accounts": [
+        "6140"
+      ]
+    },
+    "MERCHANT SERVICES SETTLEMENT": {
+      "role": "card processing",
+      "accounts": [
+        "6150"
+      ]
+    },
+    "METRO WATER UTILITY": {
+      "role": "utilities",
+      "accounts": [
+        "6120"
+      ]
+    },
+    "NORTHSTAR FOODSERVICE": {
+      "role": "food cost",
+      "accounts": [
+        "5010"
+      ]
+    },
+    "PAYROLL BATCH": {
+      "role": "payroll",
+      "accounts": [
+        "6010",
+        "6015",
+        "6020",
+        "6030"
+      ]
+    },
+    "POS SETTLEMENT": {
+      "role": "sales deposits",
+      "accounts": [
+        "4010",
+        "4020",
+        "4090"
+      ]
+    },
+    "PRAIRIE PRODUCE CO": {
+      "role": "food cost",
+      "accounts": [
+        "5010"
+      ]
+    },
+    "RIVERSIDE PLAZA HOLDINGS": {
+      "role": "rent (related party)",
+      "accounts": [
+        "6210"
+      ]
+    },
+    "SUMMIT MUTUAL INSURANCE": {
+      "role": "insurance",
+      "accounts": [
+        "6220"
+      ]
+    },
+    "SUMMIT PACKAGING SUPPLY": {
+      "role": "paper & packaging",
+      "accounts": [
+        "5030"
+      ]
+    },
+    "TRI-COUNTY PLUMBING": {
+      "role": "repairs & maintenance",
+      "accounts": [
+        "6110"
+      ]
+    },
+    "VALLEY GAS CO-OP": {
+      "role": "utilities",
+      "accounts": [
+        "6120"
+      ]
+    },
+    "QUICKFIX HANDYMAN LLC": {
+      "role": "unknown",
+      "accounts": [
+        "6110"
+      ],
+      "status": "MONITOR",
+      "first_seen": "2026-08",
+      "note": "First payment $950.00; see OI-2026-08-D."
+    }
+  },
+  "capital_projects": {},
+  "open_items_carryforward": [
+    {
+      "id": "OI-2026-05-A",
+      "opened": "2026-05",
+      "status": "OPEN",
+      "account": null,
+      "amount": 612.4,
+      "item": "Check #10211 to Fern Valley Waste Services ($612.40, dated 2026-05-12) has not cleared the bank.",
+      "action": "Confirm the vendor received payment; void and reissue if lost.",
+      "resolution_rule": {
+        "type": "check_cleared",
+        "check_no": "10211"
+      }
+    },
+    {
+      "id": "OI-2026-08-A",
+      "opened": "2026-08",
+      "status": "OPEN",
+      "account": "5010",
+      "amount": 1284.5,
+      "item": "Possible duplicate payment: Prairie Produce Co INV-44817 ($1,284.50).",
+      "action": "Confirm with Prairie Produce Co whether INV-44817 was paid twice and request a refund or credit."
+    },
+    {
+      "id": "OI-2026-08-B",
+      "opened": "2026-08",
+      "status": "OPEN",
+      "account": "6110",
+      "amount": 4559.07,
+      "item": "Repairs & Maintenance above baseline ($4,559.07).",
+      "action": "Is this a one-time repair? If it extends the equipment's life, it may belong on the balance sheet rather than in expense."
+    },
+    {
+      "id": "OI-2026-08-C",
+      "opened": "2026-08",
+      "status": "OPEN",
+      "account": "6015",
+      "amount": 2052.47,
+      "item": "Overtime above baseline ($2,052.47).",
+      "action": "What drove it: open positions, training, or scheduling? Request the overtime report by employee."
+    },
+    {
+      "id": "OI-2026-08-D",
+      "opened": "2026-08",
+      "status": "OPEN",
+      "account": "6110",
+      "amount": 950.0,
+      "item": "Unusual payment to QuickFix Handyman LLC: vendor not seen in prior months; check dated on a Sunday ($950.00).",
+      "action": "What is this, who approved it, and is it recurring? Request the invoice."
+    }
+  ],
+  "resolved_items": [
+    {
+      "id": "OI-2026-07-A",
+      "opened": "2026-07",
+      "status": "RESOLVED",
+      "account": "6220",
+      "amount": 1070.0,
+      "item": "July insurance premium appears to have been posted twice (Summit Mutual Insurance, $1,070.00).",
+      "action": "Accountant to confirm and post a credit memo.",
+      "resolution_rule": {
+        "type": "gl_credit",
+        "account": "6220",
+        "payee": "Summit Mutual Insurance",
+        "amount": 1070.0
+      },
+      "resolved_in": "2026-08",
+      "evidence": "GL 2026-08-12 JE-2291 | Summit Mutual Insurance | Credit memo CM-2291 - duplicate July premium | -$1,070.00"
+    }
+  ],
+  "seasonality_notes": {
+    "utilities": {
+      "account": "6120",
+      "months": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "expected_uplift_pct": 20,
+      "note": "Summer air-conditioning load raises utilities roughly 20% over the off-season run rate."
+    },
+    "beverage_mix": {
+      "account": "4020",
+      "months": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "expected_uplift_pct": 10,
+      "note": "Beverage mix rises in summer; informational, not an expense flag."
+    }
+  }
+}

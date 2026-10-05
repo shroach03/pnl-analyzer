@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Extracted packet",
+  "description": "What the reading agent hands to the deterministic checks for one store and month. The agent only transcribes figures from the PDFs; every tie-out, reconciliation sum, duplicate test and aging calculation is done by code on this data. Amounts are plain numbers, dates are ISO (YYYY-MM-DD), and a document that did not arrive is null or omitted.",
+  "type": "object",
+  "properties": {
+    "FR": {
+      "description": "Profit & loss: account code -> period amount. Revenue accounts (40xx) are positive.",
+      "type": ["object", "null"],
+      "propertyNames": {"pattern": "^[0-9]{4}$"},
+      "additionalProperties": {"type": "number"}
+    },
+    "FR_file": {"type": ["string", "null"], "description": "File name the current P&L was read from."},
+    "superseded_FR": {
+      "description": "Earlier revisions of the P&L, oldest first, so the review can report whether they tied.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["file", "lines"],
+        "properties": {
+          "file": {"type": "string"},
+          "lines": {"type": "object", "propertyNames": {"pattern": "^[0-9]{4}$"}, "additionalProperties": {"type": "number"}}
+        }
+      }
+    },
+    "GL": {
+      "description": "General ledger detail, one row per posting.",
+      "type": ["array", "null"],
+      "items": {
+        "type": "object",
+        "required": ["date", "ref", "acct", "payee", "memo", "debit", "credit"],
+        "properties": {
+          "date": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+          "ref": {"type": "string"},
+          "acct": {"type": "string", "pattern": "^[0-9]{4}$"},
+          "payee": {"type": "string"},
+          "memo": {"type": "string"},
+          "debit": {"type": "number"},
+          "credit": {"type": "number"}
+        }
+      }
+    },
+    "BR": {
+      "description": "Bank reconciliations, one per bank account.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["account", "summary", "outstanding_checks", "deposits_in_transit"],
+        "properties": {
+          "account": {"type": ["string", "null"]},
+          "summary": {
+            "type": "object",
+            "required": ["Balance per bank statement", "Balance per books (GL cash)"],
+            "additionalProperties": {"type": "number"}
+          },
+          "outstanding_checks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["check_no", "date", "payee", "amount"],
+              "properties": {"check_no": {"type": "string"}, "date": {"type": "string"}, "payee": {"type": "string"},
+                             "amount": {"type": "number"}}
+            }
+          },
+          "deposits_in_transit": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["date", "description", "amount"],
+              "properties": {"date": {"type": "string"}, "description": {"type": "string"}, "amount": {"type": "number"}}
+            }
+          }
+        }
+      }
+    }
+  }
+}

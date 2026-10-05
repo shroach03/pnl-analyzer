@@ -1,0 +1,464 @@
+{
+  "meta": {
+    "store_id": "S02",
+    "entity": "Hilltop Dining Co (store #2202, 45 SUMMIT AVE, HILLTOP)",
+    "registry_file": "stores_registry.json",
+    "baseline_built_from": "2026-06 to 2026-07 (FR, BR, GL)",
+    "last_closed_month": "2026-07",
+    "last_updated": "2026-08-12",
+    "instructions": "Updated after every monthly review: append this month to monthly_history, refresh the guardrails, resolve or carry forward every open item. Never drop keys."
+  },
+  "monthly_history": {
+    "net_sales": {
+      "2026-06": 89497.71,
+      "2026-07": 88046.16
+    },
+    "net_income": {
+      "2026-06": 10434.8,
+      "2026-07": 9914.0
+    },
+    "pnl_lines": {
+      "2026-06": {
+        "4010": 62693.83,
+        "4020": 28166.79,
+        "4090": -1362.91,
+        "5010": 23107.56,
+        "5020": 3972.52,
+        "5030": 3011.22,
+        "6010": 17993.31,
+        "6015": 713.89,
+        "6020": 5800.0,
+        "6030": 3898.01,
+        "6110": 1153.48,
+        "6120": 3122.06,
+        "6130": 1086.43,
+        "6140": 898.64,
+        "6150": 2130.9,
+        "6210": 6200.0,
+        "6220": 980.0,
+        "6230": 520.0,
+        "6240": 4474.89
+      },
+      "2026-07": {
+        "4010": 61677.0,
+        "4020": 27709.96,
+        "4090": -1340.8,
+        "5010": 23118.95,
+        "5020": 3888.59,
+        "5030": 3008.75,
+        "6010": 17526.08,
+        "6015": 690.68,
+        "6020": 5800.0,
+        "6030": 3739.09,
+        "6110": 1125.73,
+        "6120": 3081.67,
+        "6130": 1053.42,
+        "6140": 874.01,
+        "6150": 2122.88,
+        "6210": 6200.0,
+        "6220": 980.0,
+        "6230": 520.0,
+        "6240": 4402.31
+      }
+    },
+    "delivery_lag_days": {
+      "2026-06": 13,
+      "2026-07": 12
+    },
+    "packet_status": {
+      "2026-06": "complete",
+      "2026-07": "complete"
+    },
+    "normalizations": {}
+  },
+  "ratio_guardrails_pct_of_net_sales": {
+    "5010": {
+      "label": "Food Cost",
+      "months": [
+        "2026-06",
+        "2026-07"
+      ],
+      "observed": [
+        25.82,
+        26.26
+      ],
+      "normal_range": [
+        25.82,
+        26.26
+      ]
+    },
+    "5020": {
+      "label": "Beverage Cost",
+      "months": [
+        "2026-06",
+        "2026-07"
+      ],
+      "observed": [
+        4.44,
+        4.42
+      ],
+      "normal_range": [
+        4.42,
+        4.44
+      ]
+    },
+    "5030": {
+      "label": "Paper & Packaging",
+      "months": [
+        "2026-06",
+        "2026-07"
+      ],
+      "observed": [
+        3.36,
+        3.42
+      ],
+      "normal_range": [
+        3.36,
+        3.42
+      ]
+    },
+    "6010": {
+      "label": "Crew Wages",
+      "months": [
+        "2026-06",
+        "2026-07"
+      ],
+      "observed": [
+        20.1,
+        19.91
+      ],
+      "normal_range": [
+        19.91,
+        20.1
+      ]
+    },
+    "6015": {
+      "label": "Overtime",
+      "months": [
+        "2026-06",
+        "2026-07"
+      ],
+      "observed": [
+        0.8,
+        0.78
+      ],
+      "normal_range": [
+        0.78,
+        0.8
+      ]
+    },
+    "6020": {
+      "label": "Management Salaries",
+      "months": [
+        "2026-06",
+        "2026-07"
+      ],
+      "observed": [
+        6.48,
+        6.59
+      ],
+      "normal_range": [
+        6.48,
+        6.59
+      ]
+    },
+    "6030": {
+      "label": "Payroll Taxes & Benefits",
+      "months": [
+        "2026-06",
+        "2026-07"
+      ],
+      "observed": [
+        4.36,
+        4.25
+      ],
+      "normal_range": [
+        4.25,
+        4.36
+      ]
+    },
+    "6110": {
+      "label": "Repairs & Maintenance",
+      "months": [
+        "2026-06",
+        "2026-07"
+      ],
+      "observed": [
+        1.29,
+        1.28
+      ],
+      "normal_range": [
+        1.28,
+        1.29
+      ]
+    },
+    "6120": {
+      "label": "Utilities",
+      "months": [
+        "2026-06",
+        "2026-07"
+      ],
+      "observed": [
+        3.49,
+        3.5
+      ],
+      "normal_range": [
+        3.49,
+        3.5
+      ]
+    },
+    "6130": {
+      "label": "Operating Supplies",
+      "months": [
+        "2026-06",
+        "2026-07"
+      ],
+      "observed": [
+        1.21,
+        1.2
+      ],
+      "normal_range": [
+        1.2,
+        1.21
+      ]
+    },
+    "6140": {
+      "label": "Local Marketing",
+      "months": [
+        "2026-06",
+        "2026-07"
+      ],
+      "observed": [
+        1.0,
+        0.99
+      ],
+      "normal_range": [
+        0.99,
+        1.0
+      ]
+    },
+    "6150": {
+      "label": "Card Processing Fees",
+      "months": [
+        "2026-06",
+        "2026-07"
+      ],
+      "observed": [
+        2.38,
+        2.41
+      ],
+      "normal_range": [
+        2.38,
+        2.41
+      ]
+    },
+    "6210": {
+      "label": "Rent",
+      "months": [
+        "2026-06",
+        "2026-07"
+      ],
+      "observed": [
+        6.93,
+        7.04
+      ],
+      "normal_range": [
+        6.93,
+        7.04
+      ]
+    },
+    "6220": {
+      "label": "Insurance",
+      "months": [
+        "2026-06",
+        "2026-07"
+      ],
+      "observed": [
+        1.1,
+        1.11
+      ],
+      "normal_range": [
+        1.1,
+        1.11
+      ]
+    },
+    "6230": {
+      "label": "Property Tax",
+      "months": [
+        "2026-06",
+        "2026-07"
+      ],
+      "observed": [
+        0.58,
+        0.59
+      ],
+      "normal_range": [
+        0.58,
+        0.59
+      ]
+    },
+    "6240": {
+      "label": "Royalty & Brand Fund",
+      "months": [
+        "2026-06",
+        "2026-07"
+      ],
+      "observed": [
+        5.0,
+        5.0
+      ],
+      "normal_range": [
+        5.0,
+        5.0
+      ]
+    }
+  },
+  "vendor_baselines": {
+    "BRAND ROYALTY REMITTANCE": {
+      "role": "royalty + brand fund",
+      "accounts": [
+        "6240"
+      ]
+    },
+    "CITY POWER & LIGHT": {
+      "role": "utilities",
+      "accounts": [
+        "6120"
+      ]
+    },
+    "CLEANLINE JANITORIAL SUPPLY": {
+      "role": "operating supplies",
+      "accounts": [
+        "6130"
+      ]
+    },
+    "CLEARWATER BEVERAGE DIST.": {
+      "role": "beverage cost",
+      "accounts": [
+        "5020"
+      ]
+    },
+    "COLDLINE REFRIGERATION SVC": {
+      "role": "repairs & maintenance",
+      "accounts": [
+        "6110"
+      ]
+    },
+    "COUNTY TAX ESCROW": {
+      "role": "property tax",
+      "accounts": [
+        "6230"
+      ]
+    },
+    "FERN VALLEY WASTE SERVICES": {
+      "role": "waste removal",
+      "accounts": [
+        "6130"
+      ]
+    },
+    "HILLTOP CENTER LLC": {
+      "role": "rent (related party)",
+      "accounts": [
+        "6210"
+      ]
+    },
+    "HOMETOWN PRINT & SIGNS": {
+      "role": "local marketing",
+      "accounts": [
+        "6140"
+      ]
+    },
+    "MERCHANT SERVICES SETTLEMENT": {
+      "role": "card processing",
+      "accounts": [
+        "6150"
+      ]
+    },
+    "METRO WATER UTILITY": {
+      "role": "utilities",
+      "accounts": [
+        "6120"
+      ]
+    },
+    "NORTHSTAR FOODSERVICE": {
+      "role": "food cost",
+      "accounts": [
+        "5010"
+      ]
+    },
+    "PAYROLL BATCH": {
+      "role": "payroll",
+      "accounts": [
+        "6010",
+        "6015",
+        "6020",
+        "6030"
+      ]
+    },
+    "POS SETTLEMENT": {
+      "role": "sales deposits",
+      "accounts": [
+        "4010",
+        "4020",
+        "4090"
+      ]
+    },
+    "PRAIRIE PRODUCE CO": {
+      "role": "food cost",
+      "accounts": [
+        "5010"
+      ]
+    },
+    "SUMMIT MUTUAL INSURANCE": {
+      "role": "insurance",
+      "accounts": [
+        "6220"
+      ]
+    },
+    "SUMMIT PACKAGING SUPPLY": {
+      "role": "paper & packaging",
+      "accounts": [
+        "5030"
+      ]
+    },
+    "TRI-COUNTY PLUMBING": {
+      "role": "repairs & maintenance",
+      "accounts": [
+        "6110"
+      ]
+    },
+    "VALLEY GAS CO-OP": {
+      "role": "utilities",
+      "accounts": [
+        "6120"
+      ]
+    }
+  },
+  "capital_projects": {},
+  "open_items_carryforward": [],
+  "resolved_items": [],
+  "seasonality_notes": {
+    "utilities": {
+      "account": "6120",
+      "months": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "expected_uplift_pct": 20,
+      "note": "Summer air-conditioning load raises utilities roughly 20% over the off-season run rate."
+    },
+    "beverage_mix": {
+      "account": "4020",
+      "months": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "expected_uplift_pct": 10,
+      "note": "Beverage mix rises in summer; informational, not an expense flag."
+    }
+  }
+}

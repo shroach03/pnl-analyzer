@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "portfolio": "Example Restaurant Group (fictional)",
+    "purpose": "Canonical store registry. Every incoming document must match its claimed store on at least TWO identity fields (legal_entity, store_code, address_fragment, bank_accounts) or it goes to Quarantine/. All entities, addresses, banks and people here are synthetic.",
+    "instructions": "One block per store. legal_entity exactly as printed on the P&L cover page; address_fragment as printed in the document header; bank_accounts as the bank name printed on the bank reconciliation. Run tools/validate_registry.js after every edit.",
+    "status_field": {
+      "active": "Fully analyzed: baseline maintained, row in the completeness matrix, monthly review at its tier.",
+      "filed-only": "Identified, renamed and archived into Stores/SXX/YYYY-MM/, but not analyzed. Promote to active by seeding a baseline from the archive."
+    },
+    "tier_field": {
+      "active": "Full-depth review (3+ months of history).",
+      "light": "Learn-and-store pass while the baseline builds. Auto-graduates to active at 3 months of history."
+    },
+    "required_documents": [
+      "FR",
+      "GL",
+      "BR"
+    ],
+    "late_packet_buffer_days": 5,
+    "expected_store_count": 3,
+    "pilot_max_active": 3,
+    "intake": {
+      "mode": "Forwarded mail to a dedicated plus-address",
+      "intake_address": "set in Apps Script Script Properties (INTAKE_ADDRESS); never committed",
+      "script_processed_label": "pnl/ingested (Gmail search form: label:pnl-ingested)",
+      "script_file": "apps-script/Code.gs"
+    }
+  },
+  "stores": [
+    {
+      "store_id": "S01",
+      "display_name": "Riverside",
+      "status": "active",
+      "tier": "active",
+      "legal_entity": "Riverside Foods LLC",
+      "store_code": "1101",
+      "city": "Riverside, XX",
+      "address_fragment": "120 RIVER RD, RIVERSIDE",
+      "bank_accounts": [
+        "FIRST EXAMPLE BANK"
+      ],
+      "accountant": {
+        "firm": "Example CPA Partners",
+        "email_sender": "closeout@example-cpa.test",
+        "format_family": "example-cpa-standard"
+      },
+      "related_parties": {
+        "landlord": "Riverside Plaza Holdings",
+        "management_fee_rule": null
+      },
+      "delivery_lag_days": 10,
+      "baseline_file": "baselines/S01_baseline.json",
+      "notes": "Synthetic demo store with six months of seeded history."
+    },
+    {
+      "store_id": "S02",
+      "display_name": "Hilltop",
+      "status": "active",
+      "tier": "active",
+      "legal_entity": "Hilltop Dining Co",
+      "store_code": "2202",
+      "city": "Hilltop, XX",
+      "address_fragment": "45 SUMMIT AVE, HILLTOP",
+      "bank_accounts": [
+        "SECOND SAMPLE BANK"
+      ],
+      "accountant": {
+        "firm": "Example CPA Partners",
+        "email_sender": "closeout@example-cpa.test",
+        "format_family": "example-cpa-standard"
+      },
+      "related_parties": {
+        "landlord": "Hilltop Center LLC",
+        "management_fee_rule": null
+      },
+      "delivery_lag_days": 12,
+      "baseline_file": "baselines/S02_baseline.json",
+      "notes": "Synthetic demo store, recently acquired: two months of history, light tier."
+    },
+    {
+      "store_id": "S03",
+      "display_name": "Lakeside",
+      "status": "active",
+      "tier": "active",
+      "legal_entity": "Lakeside Eats Inc",
+      "store_code": "3303",
+      "city": "Lakeside, XX",
+      "address_fragment": "9 SHORE DR, LAKESIDE",
+      "bank_accounts": [
+        "THIRD DEMO BANK"
+      ],
+      "accountant": {
+        "firm": "Example CPA Partners",
+        "email_sender": "closeout@example-cpa.test",
+        "format_family": "example-cpa-standard"
+      },
+      "related_parties": {
+        "landlord": "Lakeside Commons LP",
+        "management_fee_rule": null
+      },
+      "delivery_lag_days": 9,
+      "baseline_file": "baselines/S03_baseline.json",
+      "notes": "Synthetic demo store with four months of history."
+    }
+  ]
+}

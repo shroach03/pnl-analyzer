@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Store baseline",
+  "description": "Everything the reviewer knows about one store: its memory between months. Rewritten in full after each review (never dropping keys), verified by re-reading, and snapshotted to a rollback point before every run.",
+  "type": "object",
+  "required": ["meta", "monthly_history", "ratio_guardrails_pct_of_net_sales", "vendor_baselines", "capital_projects",
+               "open_items_carryforward", "resolved_items", "seasonality_notes"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["store_id", "entity", "last_closed_month", "last_updated"],
+      "properties": {
+        "store_id": {"type": "string", "pattern": "^S\\d{2}$"},
+        "entity": {"type": "string"},
+        "registry_file": {"type": "string"},
+        "baseline_built_from": {"type": "string"},
+        "last_closed_month": {"type": ["string", "null"], "pattern": "^\\d{4}-\\d{2}$",
+                              "description": "null until the store's first month closes"},
+        "last_updated": {"type": "string"},
+        "instructions": {"type": "string"}
+      }
+    },
+    "monthly_history": {
+      "description": "Metric -> month -> value. A month appears here only once its packet is complete and reviewed.",
+      "type": "object",
+      "required": ["net_sales", "net_income", "pnl_lines", "delivery_lag_days", "packet_status"],
+      "properties": {
+        "net_sales": {"$ref": "#/$defs/by_month_number"},
+        "net_income": {"$ref": "#/$defs/by_month_number"},
+        "pnl_lines": {
+          "type": "object",
+          "propertyNames": {"pattern": "^\\d{4}-\\d{2}$"},
+          "additionalProperties": {"type": "object", "propertyNames": {"pattern": "^\\d{4}$"},
+                                   "additionalProperties": {"type": "number"}}
+        },
+        "delivery_lag_days": {"$ref": "#/$defs/by_month_number",
+                              "description": "Days from month-end until all required documents had arrived"},
+        "packet_status": {"type": "object", "additionalProperties": {"enum": ["complete", "partial"]}},
+        "normalizations": {"type": "object", "additionalProperties": {"type": "array", "items": {"type": "string"}}}
+      }
+    },
+    "ratio_guardrails_pct_of_net_sales": {
+      "description": "Per-line norms as % of net sales: observed values and the normal range over the trailing window.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["observed", "normal_range"],
+        "properties": {
+          "label": {"type": "string"},
+          "months": {"type": "array", "items": {"type": "string"}},
+          "observed": {"type": "array", "items": {"type": "number"}},
+          "normal_range": {"type": ["array", "null"], "items": {"type": "number"}},
+          "flag_above": {"type": "number"},
+          "note": {"type": "string"}
+        }
+      }
+    },
+    "vendor_baselines": {
+      "description": "Known payees keyed by name. A new payee is added with status MONITOR until someone confirms it.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["role"],
+        "properties": {
+          "role": {"type": "string"},
+          "accounts": {"type": "array", "items": {"type": ["string", "null"]}},
+          "range": {"type": "array", "items": {"type": "number"}},
+          "fixed": {"type": "number"},
+          "cadence": {"type": "string"},
+          "status": {"enum": ["MONITOR", "APPROVED"]},
+          "first_seen": {"type": "string"},
+          "note": {"type": "string"}
+        }
+      }
+    },
+    "capital_projects": {
+      "description": "Purchases capitalized to the balance sheet (never visible on the P&L), with running totals.",
+      "type": "object"
+    },
+    "open_items_carryforward": {"type": "array", "items": {"$ref": "#/$defs/open_item"}},
+    "resolved_items": {"type": "array", "items": {"$ref": "#/$defs/open_item"}},
+    "seasonality_notes": {
+      "description": "Applied before flagging. Named notes; the structured fields make them machine-checkable.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["note"],
+        "properties": {
+          "note": {"type": "string"},
+          "account": {"type": "string"},
+          "months": {"type": "array", "items": {"type": "integer", "minimum": 1, "maximum": 12}},
+          "expected_uplift_pct": {"type": "number"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "by_month_number": {
+      "type": "object",
+      "propertyNames": {"pattern": "^\\d{4}-\\d{2}$"},
+      "additionalProperties": {"type": ["number", "null"]}
+    },
+    "open_item": {
+      "type": "object",
+      "required": ["id", "opened", "item", "status", "action"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^OI-\\d{4}-\\d{2}-[A-Z]$"},
+        "opened": {"type": "string"},
+        "item": {"type": "string"},
+        "status": {"enum": ["OPEN", "MONITOR", "RESOLVED"]},
+        "action": {"type": "string"},
+        "account": {"type": ["string", "null"]},
+        "amount": {"type": ["number", "null"]},
+        "resolution_rule": {"type": "object", "description": "Optional machine-checkable condition that closes the item"},
+        "resolved_in": {"type": "string"},
+        "evidence": {"type": "string"}
+      }
+    }
+  }
+}

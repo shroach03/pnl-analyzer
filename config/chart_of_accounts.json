@@ -1,0 +1,39 @@
+{
+  "description": "Generic quick-service restaurant chart of accounts. 'basis' controls how a line is compared to its baseline: 'pct' = as a percent of net sales, 'fixed' = as a dollar amount.",
+  "sections": [
+    {"name": "Sales", "accounts": [
+      {"code": "4010", "label": "Food Sales", "basis": "sales"},
+      {"code": "4020", "label": "Beverage Sales", "basis": "sales"},
+      {"code": "4090", "label": "Discounts & Comps", "basis": "sales"}
+    ]},
+    {"name": "Cost of Goods Sold", "accounts": [
+      {"code": "5010", "label": "Food Cost", "basis": "pct"},
+      {"code": "5020", "label": "Beverage Cost", "basis": "pct"},
+      {"code": "5030", "label": "Paper & Packaging", "basis": "pct"}
+    ]},
+    {"name": "Labor", "accounts": [
+      {"code": "6010", "label": "Crew Wages", "basis": "pct"},
+      {"code": "6015", "label": "Overtime", "basis": "pct"},
+      {"code": "6020", "label": "Management Salaries", "basis": "fixed"},
+      {"code": "6030", "label": "Payroll Taxes & Benefits", "basis": "pct"}
+    ]},
+    {"name": "Controllable Expenses", "accounts": [
+      {"code": "6110", "label": "Repairs & Maintenance", "basis": "pct"},
+      {"code": "6120", "label": "Utilities", "basis": "pct"},
+      {"code": "6130", "label": "Operating Supplies", "basis": "pct"},
+      {"code": "6140", "label": "Local Marketing", "basis": "pct"},
+      {"code": "6150", "label": "Card Processing Fees", "basis": "pct"}
+    ]},
+    {"name": "Occupancy & Fees", "accounts": [
+      {"code": "6210", "label": "Rent", "basis": "fixed"},
+      {"code": "6220", "label": "Insurance", "basis": "fixed"},
+      {"code": "6230", "label": "Property Tax", "basis": "fixed"},
+      {"code": "6240", "label": "Royalty & Brand Fund", "basis": "pct"}
+    ]}
+  ],
+  "groups": {
+    "cogs": ["5010", "5020", "5030"],
+    "labor": ["6010", "6015", "6020", "6030"],
+    "prime_cost": ["5010", "5020", "5030", "6010", "6015", "6020", "6030"]
+  }
+}

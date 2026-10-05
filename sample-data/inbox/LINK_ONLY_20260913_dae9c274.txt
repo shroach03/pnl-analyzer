@@ -1,0 +1,7 @@
+LINK-ONLY / NO-PDF EMAIL, flagged for the agent intake sweep
+Received : 2026-09-13T07:40:00-05:00
+From     : closeout@example-cpa.test
+Subject  : Lakeside - August bank statement
+Msg ID   : 6bfcde42dae9c274
+
+Body: Your statement is available in our client portal: https://portal.example-cpa.test/share/abc123
