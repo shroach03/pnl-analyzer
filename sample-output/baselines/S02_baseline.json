@@ -17,7 +17,7 @@
     "net_income": {
       "2026-06": 10434.8,
       "2026-07": 9914.0,
-      "2026-08": 8361.32
+      "2026-08": 8261.32
     },
     "pnl_lines": {
       "2026-06": {
@@ -75,7 +75,7 @@
         "6030": 3928.92,
         "6110": 1159.58,
         "6120": 3153.08,
-        "6130": 1083.54,
+        "6130": 1183.54,
         "6140": 2400.81,
         "6150": 2152.85,
         "6210": 6200.0,
@@ -260,11 +260,11 @@
       "observed": [
         1.21,
         1.2,
-        1.2
+        1.32
       ],
       "normal_range": [
         1.2,
-        1.21
+        1.32
       ]
     },
     "6140": {
@@ -497,13 +497,22 @@
       "id": "OI-2026-08-A",
       "opened": "2026-08",
       "status": "OPEN",
+      "account": "6130",
+      "amount": 100.0,
+      "item": "P&L does not tie to GL on 6130 Operating Supplies ($100.00).",
+      "action": "Ask the accountant which figure is correct and to reissue the report."
+    },
+    {
+      "id": "OI-2026-08-B",
+      "opened": "2026-08",
+      "status": "OPEN",
       "account": null,
       "amount": 45.0,
       "item": "Bank reconciliation does not balance ($45.00).",
       "action": "Ask the accountant for the reconciling item behind the difference."
     },
     {
-      "id": "OI-2026-08-B",
+      "id": "OI-2026-08-C",
       "opened": "2026-08",
       "status": "OPEN",
       "account": "6140",

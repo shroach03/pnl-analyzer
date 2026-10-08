@@ -1,0 +1,19 @@
+# Weekly update PRs for the pinned GitHub Actions (commit SHAs) and the pinned Python versions in
+# requirements-ci.txt. Each PR runs CI against the new version before anything changes on main.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
+
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      python:
+        patterns: ["*"]

@@ -12,6 +12,7 @@ structure the schema describes, and `--extracted-dir` lets a real agent's output
 from __future__ import annotations
 
 import re
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -22,6 +23,23 @@ from .common import REPO_ROOT, load_json
 
 TEXT_PAGES = 3  # identity often isn't on page 1 (cover letters come first)
 EXTRACTION_SCHEMA = REPO_ROOT / "schemas" / "extraction.schema.json"
+
+# Limits per PDF. A month's packet is a few pages and well under 1 MB, so these leave wide headroom while
+# keeping a hostile or broken file from tying up the run. Size is checked before the file is opened, pages
+# as soon as it is, and time between pages (so one pathological page can overrun until it finishes).
+MAX_PDF_BYTES = 20 * 1024 * 1024
+MAX_PDF_PAGES = 100
+MAX_PARSE_SECONDS = 20.0
+
+
+class PdfLimitError(Exception):
+    """A PDF exceeded a parsing limit. The message names the limit; the file was not (fully) parsed."""
+
+
+def _check_size(path: Path) -> None:
+    size = path.stat().st_size
+    if size > MAX_PDF_BYTES:
+        raise PdfLimitError(f"file size limit exceeded: {size / 1024 / 1024:.1f} MB (limit {MAX_PDF_BYTES / 1024 / 1024:g} MB)")
 
 
 def _num(s: str) -> float:
@@ -37,10 +55,33 @@ class PdfContent:
 
 
 def read_pdf(path: Path, tables: bool = True) -> PdfContent:
-    """Open the PDF once. Pass tables=False when only identity text is needed (intake)."""
+    """Open the PDF once, within the limits above. Pass tables=False when only identity text is needed (intake).
+
+    Tables are read only from pages that have ruling lines: the default table finder works from those
+    lines, so a page without any (a cover letter, a page of notes) can't hold a table it would find.
+    Raises PdfLimitError naming the limit a file exceeds.
+    """
+    _check_size(path)
+    deadline = time.monotonic() + MAX_PARSE_SECONDS
+
+    def on_time():
+        if time.monotonic() > deadline:
+            raise PdfLimitError(f"parse time limit exceeded: over {MAX_PARSE_SECONDS:g} s")
+
     with pdfplumber.open(path) as pdf:
-        text = [(p.extract_text() or "") for p in pdf.pages[:TEXT_PAGES]]
-        found = [t for p in pdf.pages for t in p.extract_tables()] if tables else []
+        pages = len(pdf.pages)
+        if pages > MAX_PDF_PAGES:
+            raise PdfLimitError(f"page count limit exceeded: {pages} pages (limit {MAX_PDF_PAGES})")
+        text = []
+        for p in pdf.pages[:TEXT_PAGES]:
+            on_time()
+            text.append(p.extract_text() or "")
+        found = []
+        for p in pdf.pages if tables else []:
+            on_time()
+            if p.edges:
+                found += p.extract_tables()
+        on_time()
     return PdfContent(text, found)
 
 
@@ -106,6 +147,7 @@ class Packet:
     brs: list[dict] = field(default_factory=list)  # one per bank account
     superseded_fr: list[dict] = field(default_factory=list)  # [{"file": name, "lines": {...}}], oldest first
     fr_name: str | None = None  # file the current FR came from, for report notes
+    problems: list[str] = field(default_factory=list)  # filed documents that could not be read, and why
 
     def to_json(self) -> dict:
         return {"FR": self.fr, "GL": self.gl, "BR": self.brs, "superseded_FR": self.superseded_fr,
@@ -124,18 +166,24 @@ def read_packet(docs: dict[str, list[dict]], ws: Path) -> Packet:
     `docs` is one store's slice of `intake.packets()`: doc type -> versions, current last. Bank
     reconciliations are one per account, so the latest version of each account is used.
     """
-    def path_of(entry):
-        return ws / entry["final_path"]
-
     pkt = Packet()
+
+    def parse(doc_type, entry):
+        """A document over a parsing limit is left out (so it counts as not extracted) and the reason kept."""
+        try:
+            return parse_document(doc_type, ws / entry["final_path"])
+        except PdfLimitError as e:
+            pkt.problems.append(f"`{Path(entry['final_path']).name}` was not read: {e}.")
+            return None
+
     if "FR" in docs:
-        pkt.fr = parse_document("FR", path_of(docs["FR"][-1]))
+        pkt.fr = parse("FR", docs["FR"][-1])
         pkt.fr_name = Path(docs["FR"][-1]["final_path"]).name
-        pkt.superseded_fr = [{"file": Path(o["final_path"]).name, "lines": parse_document("FR", path_of(o))}
-                             for o in docs["FR"][:-1]]
+        older = [(Path(o["final_path"]).name, parse("FR", o)) for o in docs["FR"][:-1]]
+        pkt.superseded_fr = [{"file": name, "lines": lines} for name, lines in older if lines is not None]
     if "GL" in docs:
-        pkt.gl = parse_document("GL", path_of(docs["GL"][-1]))
-    pkt.brs = [parse_document("BR", path_of(e)) for e in latest_per_account(docs.get("BR", []))]
+        pkt.gl = parse("GL", docs["GL"][-1])
+    pkt.brs = [br for e in latest_per_account(docs.get("BR", [])) if (br := parse("BR", e)) is not None]
     return pkt
 
 

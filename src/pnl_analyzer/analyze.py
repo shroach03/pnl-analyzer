@@ -445,6 +445,7 @@ def review_store(store: dict, baseline: dict, docs: dict, packet: Packet, coa: d
     assessed = assess_packet(store, docs, history, month, as_of, buffer_days)
     missing, lag = assessed["missing"], assessed["lag"]
     not_extracted = extraction_gaps(docs, packet)
+    notes += packet.problems  # e.g. a filed document over a parsing limit: why it counts as not extracted
     status = "partial" if not_extracted else assessed["status"]
     brs_complete = not any(m.startswith("BR") for m in missing) and not any(g.startswith("BR") for g in not_extracted)
 

@@ -4,4 +4,5 @@ From     : closeout@example-cpa.test
 Subject  : Lakeside - August bank statement
 Msg ID   : 6bfcde42dae9c274
 
-Body: Your statement is available in our client portal: https://portal.example-cpa.test/share/abc123
+Links found in the email (the body itself is not copied):
+- https://portal.example-cpa.test/share/abc123

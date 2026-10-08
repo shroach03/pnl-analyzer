@@ -20,10 +20,11 @@ from pathlib import Path
 
 import jsonschema
 
+from . import certify
 from .analyze import review_store
 from .common import GRADUATION_MONTHS, REPO_ROOT, load_coa, load_json, save_json
 from .extract import Packet, read_packet
-from .intake import certification, packets, sweep
+from .intake import certification, packets, pending_corrections, sweep
 from .report import render
 
 SCHEMA = load_json(REPO_ROOT / "schemas" / "baseline.schema.json")
@@ -88,7 +89,9 @@ def main(argv=None) -> int:
     # In Drive this file is written into Inbox/, where the Apps Script picks it up. The demo inbox is
     # committed sample data, so the demo writes it beside the workspace instead.
     cert_path = ws / "certifications" / cert_name
-    save_json(cert_path, merge_certification(cert_path, certification(trash, as_of.date().isoformat())))
+    # The check between agent and script: only files this run dispositioned, each with its matching reason.
+    kept, dropped = certify.check(trash, dispositions)
+    save_json(cert_path, merge_certification(cert_path, certification(kept, as_of.date().isoformat())))
 
     # Rollback point before any baseline changes. A rerun keeps the snapshot from the month's first run:
     # overwriting it would replace the true pre-run state with the output of the run being redone.
@@ -133,7 +136,8 @@ def main(argv=None) -> int:
         save_json(ws / "stores_registry.json", registry)
 
     # Phase 3: one consolidated report
-    md = render(args.month, as_of, registry["meta"]["portfolio"], results, dispositions, writes, graduations, cert_name)
+    md = render(args.month, as_of, registry["meta"]["portfolio"], results, dispositions, writes, graduations, cert_name,
+                pending_corrections(intake_log), dropped)
     out = ws / "Reports" / f"{args.month}_portfolio_report.md"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(md, encoding="utf-8", newline="\n")

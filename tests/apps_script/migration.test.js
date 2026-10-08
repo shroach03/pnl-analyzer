@@ -1,70 +1,8 @@
 // Runs the real apps-script/Code.gs against a fake in-memory Drive.
-//   node --test tests/apps_script/
+//   node --test tests/apps_script/*.test.js
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const crypto = require("node:crypto");
-const fs = require("node:fs");
-const path = require("node:path");
-const vm = require("node:vm");
-
-const CODE = fs.readFileSync(path.join(__dirname, "..", "..", "apps-script", "Code.gs"), "utf8");
-const hex = (alg, buf) => crypto.createHash(alg).update(buf).digest("hex");
-
-function iter(items) {
-  let i = 0;
-  return { hasNext: () => i < items.length, next: () => items[i++] };
-}
-
-/** A tiny Drive: folders, files with bytes, last-updated stamps, makeCopy. */
-function makeDrive() {
-  let clock = 0;
-  let ids = 0;
-  class File {
-    constructor(name, content, mime) {
-      this.name = name;
-      this.mime = mime;
-      this.id = `f${++ids}`;
-      this.setContent(content);
-    }
-    setContent(c) { this.bytes = Buffer.isBuffer(c) ? c : Buffer.from(c, "utf8"); this.updated = ++clock; }
-    getName() { return this.name; }
-    getBlob() {
-      const f = this;
-      return { getBytes: () => Array.from(f.bytes, (b) => (b > 127 ? b - 256 : b)), getDataAsString: () => f.bytes.toString("utf8") };
-    }
-    getLastUpdated() { return new Date(this.updated); }
-    makeCopy(name, dest) { return dest.createFile(name, this.bytes, this.mime); }
-  }
-  class Folder {
-    constructor(name) { this.name = name; this.files = []; this.folders = []; }
-    getName() { return this.name; }
-    getFoldersByName(n) { return iter(this.folders.filter((f) => f.name === n)); }
-    getFilesByName(n) { return iter(this.files.filter((f) => f.name === n)); }
-    getFiles() { return iter(this.files); }
-    getFolders() { return iter(this.folders); }
-    createFolder(name) { const f = new Folder(name); this.folders.push(f); return f; }
-    createFile(name, content, mime) { const f = new File(name, content, mime); this.files.push(f); return f; }
-    sub(name) { return this.getFoldersByName(name).next(); }
-  }
-  return { File, Folder, myDrive: new Folder("My Drive") };
-}
-
-function load(drive, props = { INTAKE_ADDRESS: "intake@example.test", ROOT_FOLDER: "PnLAnalyze" }) {
-  const logs = [];
-  const digest = (alg, bytes) => Array.from(crypto.createHash(alg).update(Buffer.from(bytes.map((b) => b & 255))).digest(), (b) => (b > 127 ? b - 256 : b));
-  const ctx = vm.createContext({
-    DriveApp: { getRootFolder: () => drive.myDrive },
-    LockService: { getScriptLock: () => ({ tryLock: () => true, releaseLock() {} }) },
-    PropertiesService: { getScriptProperties: () => ({ getProperty: (k) => props[k] }) },
-    Logger: { log: (...a) => logs.push(a.join(" ")) },
-    Utilities: { DigestAlgorithm: { MD5: "md5", SHA_256: "sha256" }, computeDigest: digest, formatDate: () => "2026-09-24T00:00:00-05:00" },
-    Session: { getScriptTimeZone: () => "UTC" },
-    MimeType: { CSV: "text/csv", PLAIN_TEXT: "text/plain" },
-  });
-  vm.runInContext(CODE, ctx);
-  ctx.logs = logs;
-  return ctx;
-}
+const { hex, makeDrive, load } = require("./fake_gas.js");
 
 // ---------------------------------------------------------------- pure helpers
 test("digests match published test vectors", () => {

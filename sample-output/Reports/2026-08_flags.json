@@ -42,6 +42,14 @@
   {
     "store_id": "S02",
     "severity": "high",
+    "category": "Tie-out",
+    "account": "6130",
+    "amount": 100.0,
+    "title": "P&L does not tie to GL on 6130 Operating Supplies"
+  },
+  {
+    "store_id": "S02",
+    "severity": "high",
     "category": "Red flag",
     "account": null,
     "amount": 45.0,
