@@ -53,14 +53,14 @@
       "reason": "quarantined"
     },
     {
-      "drive_file_id": "local:Stores/S02/2026-08/S02_FR_2026-08.pdf@df6ea0c2",
-      "title": "S02_FR_2026-08.pdf",
-      "reason": "superseded_old_canonical"
-    },
-    {
       "drive_file_id": "local:20260912_3bdb791c_Hilltop P&L Aug 2026 REVISED.pdf",
       "title": "20260912_3bdb791c_Hilltop P&L Aug 2026 REVISED.pdf",
-      "reason": "filed"
+      "reason": "pending_approval"
+    },
+    {
+      "drive_file_id": "local:20260912_6dc1a52a_Riverside_Supporting_Schedule_Aug2026.pdf",
+      "title": "20260912_6dc1a52a_Riverside_Supporting_Schedule_Aug2026.pdf",
+      "reason": "quarantined"
     },
     {
       "drive_file_id": "local:LINK_ONLY_20260913_dae9c274.txt",

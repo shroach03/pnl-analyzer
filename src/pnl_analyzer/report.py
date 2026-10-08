@@ -5,10 +5,33 @@ import datetime as dt
 
 from .common import money, pct
 
-DISP_LABEL = {"filed": "Filed", "superseded-new": "Filed, supersedes earlier copy",
+DISP_LABEL = {"filed": "Filed", "superseded-new": "Approved correction, supersedes earlier copy",
               "superseded-old": "Earlier copy moved to superseded/", "duplicate": "Duplicate, skipped",
               "quarantined": "Quarantined", "link_only-logged": "Link only, logged and chased",
-              "missing": "Missing from Inbox"}
+              "correction-pending": "Correction pending approval",
+              "rejected-sender-logged": "Rejected sender, logged",
+              "approval-unmatched": "Unrecognized file in approved/", "missing": "Missing from Inbox",
+              "approval-unrecorded": "In approved/ without an approval record",
+              "invalid-manifest-row": "Invalid manifest row, rejected"}
+ATTENTION = ("quarantined", "link_only-logged", "rejected-sender-logged", "approval-unmatched", "approval-unrecorded",
+             "missing",
+             "invalid-manifest-row")
+
+
+def _item_name(d: dict) -> str:
+    """Where an intake item lives: the Inbox, the Rejected/ notes, or the archive."""
+    if d.get("inbox_name"):
+        return f"`{d['inbox_name']}`"
+    if d["disposition"] == "rejected-sender-logged":
+        return f"(Rejected/) `{d['original_filename']}`"
+    return f"(archive) `{d['original_filename']}`"
+
+
+def _pending_line(p: dict) -> str:
+    return (f"- **{p['store']}**: corrected {p['type']} `{p['original_filename']}` is **pending approval**. "
+            f"It would replace `{p['replaces'].split('/')[-1]}`, which stays in use until then. To approve, move "
+            f"`{p['final_path']}` into `Stores/{p['store']}/{p['period']}/approved/`, then run `approveCorrections()` "
+            f"in the Apps Script editor; the next run applies it and re-analyzes {p['period']}.")
 
 
 def _pts(x: float) -> str:
@@ -65,7 +88,8 @@ def _lag_text(r: dict) -> str:
 
 
 def render(month: str, as_of: dt.datetime, portfolio: str, results: list[dict], dispositions: list[dict],
-           writes: list[dict], graduations: list[str], cert_name: str) -> str:
+           writes: list[dict], graduations: list[str], cert_name: str, pending: list[dict] = (),
+           dropped: list[dict] = ()) -> str:
     L: list[str] = []
     n_flags = sum(len(r["flags"]) for r in results)
     n_high = sum(1 for r in results for f in r["flags"] if f["severity"] == "high")
@@ -87,9 +111,15 @@ def render(month: str, as_of: dt.datetime, portfolio: str, results: list[dict], 
         for f in r["flags"]:
             if f["severity"] == "high":
                 attention.append(f"- **{r['store_id']} {r['store_name']}**: {f['title']} ({money(f['amount'])}).")
+    attention += [f"- Cleanup list: dropped `{d.get('drive_file_id')}` ({d.get('title') or '?'}, reason "
+                  f"`{d.get('reason')}`) before the script could see it: {d['why']}." for d in dropped]
+    attention += [_pending_line(p) for p in pending]
     for d in dispositions:
-        if d["disposition"] in ("quarantined", "link_only-logged", "missing"):
-            attention.append(f"- Inbox: `{d['inbox_name']}` {DISP_LABEL[d['disposition']].lower()}: {d['reason']}")
+        if d["disposition"] in ATTENTION:
+            attention.append(f"- Intake: {_item_name(d)} {DISP_LABEL[d['disposition']].lower()}: {d['reason']}")
+        elif d.get("reanalyze") and d["period"] != month:
+            attention.append(f"- **{d['store']}**: approved correction `{d['original_filename']}` was filed for {d['period']}; "
+                             f"rerun {d['period']} to re-analyze it.")
     for w in writes:
         if not w["confirmed"]:
             attention.append(f"- **{w['store_id']}**: baseline write NOT confirmed ({w['error']}). Rerun required.")
@@ -120,7 +150,7 @@ def render(month: str, as_of: dt.datetime, portfolio: str, results: list[dict], 
           "| Received | Inbox file | Disposition | Filed as / reason |", "|---|---|---|---|"]
     for d in dispositions:
         disp = d["disposition"]
-        name = f"`{d['inbox_name']}`" if d.get("inbox_name") else f"(archive) `{d['original_filename']}`"
+        name = _item_name(d)
         if disp in ("filed", "superseded-new"):
             where = f"`{d['final_path'].split('/')[-1]}` (matched on {', '.join(d['identity_fields'])})"
         elif disp == "superseded-old":
@@ -132,7 +162,9 @@ def render(month: str, as_of: dt.datetime, portfolio: str, results: list[dict], 
         if d.get("notes"):
             where += " · " + "; ".join(d["notes"])
         L.append(f"| {(d.get('received') or '')[:16].replace('T', ' ')} | {name} | {DISP_LABEL[disp]} | {where} |")
-    L += ["", f"Cleanup certification written: `{cert_name}`.", ""]
+    L += ["", f"Cleanup certification written: `{cert_name}`"
+          + (f" ({len(dropped)} entr{'y' if len(dropped) == 1 else 'ies'} dropped by the certification check; "
+             "see *Needs attention*)." if dropped else ", every entry checked against this run's dispositions."), ""]
 
     # -------- per-store sections
     for r in results:
@@ -148,6 +180,10 @@ def render(month: str, as_of: dt.datetime, portfolio: str, results: list[dict], 
             L += [f"> **INCOMPLETE.** {reason[0].upper() + reason[1:]}. Reviewed what arrived "
                   f"({', '.join(f'`{n}`' for vs in r['docs'].values() for n in vs)}); "
                   "bank-dependent checks and items could not be verified. The month stays open.", ""]
+        for p in pending:
+            if p["store"] == r["store_id"] and p["period"] == month:
+                L += [f"> **Correction pending approval.** A corrected {p['type']} (`{p['original_filename']}`) arrived; "
+                      f"this review uses the filed `{p['replaces'].split('/')[-1]}` until a person approves it.", ""]
         k = r["kpis"]
         if k:
             vs = (f"{pct(k['sales_vs_trailing_pct'], True)} vs {r['history_months']}-month average"
@@ -204,6 +240,7 @@ def render(month: str, as_of: dt.datetime, portfolio: str, results: list[dict], 
 
     # -------- chase email
     asks = []
+    awaiting_fr = {p["store"] for p in pending if p["type"] == "FR" and p["period"] == month}
     for r in results:
         doc_names = {"BR": "bank reconciliation", "GL": "general ledger detail", "FR": "P&L"}
         link_only = any(d["disposition"] == "link_only-logged" and r["store_name"] in (d.get("subject") or "")
@@ -213,6 +250,8 @@ def render(month: str, as_of: dt.datetime, portfolio: str, results: list[dict], 
             asks.append(f"- {r['store_name']}: the {_month_name(month)} {doc_names[kind]}{' ' + account if account else ''} has not arrived"
                         + (" (we received a portal link only; please send the PDF)." if link_only else "."))
         for f in r["flags"]:
+            if f["category"] == "Tie-out" and r["store_id"] in awaiting_fr:
+                continue  # the accountant already sent a corrected P&L; it is waiting on our approval, not theirs
             if f["category"] == "Tie-out" or "Bank reconciliation" in f["title"]:
                 asks.append(f"- {r['store_name']}: {f['title'].lower()} by {money(f['amount'])}. "
                             "Could you send the reconciling item?")

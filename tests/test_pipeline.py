@@ -1,7 +1,7 @@
 """End-to-end test: run the pipeline on the synthetic data and check every planted scenario is caught."""
 import hashlib
 
-from conftest import ROOT, run_pipeline
+from conftest import ROOT, held_correction, run_pipeline
 
 from pnl_analyzer import extract, intake
 from pnl_analyzer import run as run_module
@@ -21,17 +21,19 @@ def test_planted_scenarios(sample, workspace):
     for e in log:
         by_disp.setdefault(e["disposition"], []).append(e["original_filename"])
     assert by_disp["duplicate"] == ["GL_Detail_Aug2026.pdf"]            # re-sent in a reply, same hash
-    assert by_disp["quarantined"] == ["IMG_0912_scan.pdf"]
-    assert by_disp["superseded-new"] == ["Hilltop P&L Aug 2026 REVISED.pdf"]
-    assert by_disp["superseded-old"] == ["S02_FR_2026-08.pdf"]
+    assert by_disp["quarantined"] == ["IMG_0912_scan.pdf", "Riverside_Supporting_Schedule_Aug2026.pdf"]  # + the canary
+    assert by_disp["correction-pending"] == ["Hilltop P&L Aug 2026 REVISED.pdf"]   # held, not auto-superseded
+    assert "superseded-new" not in by_disp and "superseded-old" not in by_disp
     assert len(by_disp["link_only-logged"]) == 1
-    assert (ws / "Stores" / "S02" / "2026-08" / "superseded" / "S02_FR_2026-08_superseded_20260915.pdf").exists()
+    assert len(by_disp["rejected-sender-logged"]) == 1
+    assert (ws / held_correction(sample)).exists()
+    assert not (ws / "Stores" / "S02" / "2026-08" / "superseded").exists()
     assert (ws / "Quarantine" / "20260912_f3f71406_IMG_0912_scan.pdf.reason.txt").exists()
     cert = load_json(next((ws / "certifications").glob("_processed_*.json")))
-    # all 12 Inbox items + the superseded canonical copy, in one certification
+    # all 13 Inbox items in one certification; the rejected sender's note is not in the Inbox and is kept
     assert cert["written_by"] == "agent sweep" and len(cert["trash"]) == 13
     assert {t["reason"] for t in cert["trash"]} == {"filed", "duplicate", "quarantined", "link_only_logged",
-                                                    "superseded_old_canonical"}
+                                                    "pending_approval"}
     assert all(t["drive_file_id"] and t["reason"] for t in cert["trash"])
     # analysis
     assert "Possible duplicate payment: Prairie Produce Co INV-44817" in report
@@ -78,7 +80,7 @@ def test_a_store_is_not_promoted_when_its_baseline_write_is_not_confirmed(sample
 
 def test_manifest_hashes_are_sha256_of_the_file_bytes(sample):
     inbox = sample / "inbox"
-    rows = [r for r in intake.read_manifest(inbox) if r["note"] != "link_only"]
+    rows = [r for r in intake.read_manifest(inbox) if not r["note"]]  # link-only and rejected-sender rows carry no hash
     assert rows
     for row in rows:
         path = inbox / row["drive_file_id"].removeprefix("local:")

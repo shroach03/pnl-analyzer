@@ -5,6 +5,7 @@
 // Catches the mistakes that would silently corrupt a run: duplicate IDs, stores that
 // can't satisfy the two-field identity rule (their documents would all quarantine),
 // active stores missing what analysis needs, and inconsistent accountant settings.
+// On success it prints the value for the Apps Script's ALLOWED_SENDERS Script Property.
 
 const fs = require("fs");
 
@@ -130,4 +131,7 @@ if (problems.length) {
     `\nOK: ${stores.length} stores, ${active.length} active, ${brTotal} bank account(s) listed ` +
       `(the completeness matrix expects that many BRs per month). Safe to upload.`
   );
+  // The Apps Script can't read the registry, so its sender allowlist is copied from here by hand.
+  console.log(`
+ALLOWED_SENDERS Script Property should be: ${[...senders].sort().join(",")}`);
 }

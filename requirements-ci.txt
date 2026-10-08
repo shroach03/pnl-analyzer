@@ -1,0 +1,28 @@
+# Exact versions CI installs, as pip constraints:  pip install -c requirements-ci.txt -e ".[dev]"
+# pyproject.toml keeps the open ranges a library user gets; this file pins what CI tests against, so a
+# run is reproducible and a new release only reaches CI through a Dependabot PR that has to pass first.
+# Resolved for Linux on Python 3.11 and 3.13 (the CI matrix). Includes typing-extensions (needed below
+# Python 3.13) and colorama (pytest uses it on Windows).
+attrs==26.1.0
+cffi==2.1.1
+charset-normalizer==3.5.2
+colorama==0.4.6
+cryptography==50.0.2
+iniconfig==2.3.0
+jsonschema-specifications==2025.9.1
+jsonschema==4.26.0
+packaging==26.3
+pdfminer.six==20260107
+pdfplumber==0.11.10
+pillow==12.3.0
+pluggy==1.6.0
+pycparser==3.0
+pygments==2.21.0
+pypdfium2==5.14.0
+pytest==9.1.1
+referencing==0.37.0
+reportlab==5.0.1
+rpds-py==0.30.0
+ruff==0.16.10
+setuptools==84.0.0
+typing-extensions==4.16.0

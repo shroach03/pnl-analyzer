@@ -37,5 +37,17 @@ def workspace(sample, tmp_path):
     return ws
 
 
+def held_correction(sample: Path) -> str:
+    """Where the sweep holds the demo's corrected Hilltop P&L: `..._pending_{first 8 of its SHA-256}.pdf`.
+
+    Computed from the regenerated file, never hard-coded: reportlab's output bytes differ between
+    operating systems (the visible text doesn't), so the hash and therefore the name do too.
+    """
+    from pnl_analyzer.intake import sha256
+
+    revised = next((sample / "inbox").glob("*Hilltop P&L Aug 2026 REVISED.pdf"))
+    return f"Stores/S02/2026-08/pending/S02_FR_2026-08_pending_{sha256(revised)[:8]}.pdf"
+
+
 def run_pipeline(sample: Path, ws: Path, *extra: str, month: str = MONTH) -> int:
     return main(["--inbox", str(sample / "inbox"), "--workspace", str(ws), "--month", month, "--as-of", AS_OF, *extra])

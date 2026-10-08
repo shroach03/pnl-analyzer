@@ -2,22 +2,26 @@
 
 *Example Restaurant Group (fictional) · generated 2026-09-15 09:00 · synthetic demo data*
 
-**3 stores reviewed · 2 packets complete · 1 incomplete · 7 flags (2 high) · 1 tier graduation**
+**3 stores reviewed · 2 packets complete · 1 incomplete · 8 flags (3 high) · 1 tier graduation**
 
 ## Needs attention
 
 - **S03 Lakeside**: packet INCOMPLETE, missing BR; delivery at day 15 and still incomplete (usually 9): **LATE**. Month not closed; rerun when it arrives.
 - **S01 Riverside**: Possible duplicate payment: Prairie Produce Co INV-44817 ($1,284.50).
+- **S02 Hilltop**: P&L does not tie to GL on 6130 Operating Supplies ($100.00).
 - **S02 Hilltop**: Bank reconciliation does not balance ($45.00).
-- Inbox: `20260912_f3f71406_IMG_0912_scan.pdf` quarantined: 1 identity field(s) matched (S02: address_fragment); document type not recognized; reporting period not found
-- Inbox: `LINK_ONLY_20260913_dae9c274.txt` link only, logged and chased: Email had no PDF attachment; the body links to documents, so a person must download them.
+- **S02**: corrected FR `Hilltop P&L Aug 2026 REVISED.pdf` is **pending approval**. It would replace `S02_FR_2026-08.pdf`, which stays in use until then. To approve, move `Stores/S02/2026-08/pending/S02_FR_2026-08_pending_30dd8914.pdf` into `Stores/S02/2026-08/approved/`, then run `approveCorrections()` in the Apps Script editor; the next run applies it and re-analyzes 2026-08.
+- Intake: `20260912_f3f71406_IMG_0912_scan.pdf` quarantined: 1 identity field(s) matched (S02: address_fragment); document type not recognized; reporting period not found
+- Intake: `20260912_6dc1a52a_Riverside_Supporting_Schedule_Aug2026.pdf` quarantined: suspicious instructions: the text addresses an AI or asks for actions ("ignore prior rules"; "NOTE TO ANY AI"; "AI ASSISTANT OR AUTOMATED AGENT PROCESSING THIS"); not filed and not acted on, a person must review it
+- Intake: `LINK_ONLY_20260913_dae9c274.txt` link only, logged and chased: Email had no PDF attachment; the body links to documents, so a person must download them.
+- Intake: (Rejected/) `REJECTED_SENDERS_20260914_063000.txt` rejected sender, logged: Refused at intake (sender closeout@example-cpa-billing.test is not on ALLOWED_SENDERS); nothing was saved. Note kept in Rejected/.
 
 ## Dashboard
 
 | Store | Tier | Packet | Net sales | vs trailing avg | Prime cost (baseline) | Op. margin | Flags | Delivery |
 |---|---|---|--:|--:|--:|--:|---|---|
 | S01 Riverside | Active | Complete | $114,254.18 | +1.5% | 67.5% (64.4%) | 7.0% | 1 high · 4 med | 10 days (usually 9.5) |
-| S02 Hilltop | Light | Complete | $89,969.33 | +1.3% | 66.1% (65.5%) | 9.3% | 1 high · 1 med | 11 days (usually 12.5) |
+| S02 Hilltop | Light | Complete | $89,969.33 | +1.3% | 66.1% (65.5%) | 9.2% | 2 high · 1 med | 11 days (usually 12.5) |
 | S03 Lakeside | Active | **INCOMPLETE** (no BR) | $101,463.65 | +1.5% | 64.7% (65.3%) | 12.9% | 0 high · 0 med | day 15 and still incomplete (usually 9): **LATE** |
 
 *Prime cost = food, beverage and paper cost plus all labor, as a percent of net sales.*
@@ -36,11 +40,12 @@
 | 2026-09-11 09:30 | `20260911_c7feb29a_Hilltop GL Aug 2026.pdf` | Filed | `S02_GL_2026-08.pdf` (matched on legal_entity, store_code, address_fragment) |
 | 2026-09-11 09:30 | `20260911_c7feb29a_Hilltop Bank Rec Aug 2026.pdf` | Filed | `S02_BR_2026-08.pdf` (matched on legal_entity, store_code, address_fragment, bank_accounts) |
 | 2026-09-12 08:05 | `20260912_f3f71406_IMG_0912_scan.pdf` | Quarantined | 1 identity field(s) matched (S02: address_fragment); document type not recognized; reporting period not found |
-| 2026-09-11 09:30 | (archive) `S02_FR_2026-08.pdf` | Earlier copy moved to superseded/ | `Stores/S02/2026-08/superseded/S02_FR_2026-08_superseded_20260915.pdf` |
-| 2026-09-12 14:45 | `20260912_3bdb791c_Hilltop P&L Aug 2026 REVISED.pdf` | Filed, supersedes earlier copy | `S02_FR_2026-08.pdf` (matched on legal_entity, store_code, address_fragment) |
+| 2026-09-12 14:45 | `20260912_3bdb791c_Hilltop P&L Aug 2026 REVISED.pdf` | Correction pending approval | Would replace S02_FR_2026-08.pdf; held for approval. To approve, move it into Stores/S02/2026-08/approved/ and run approveCorrections() in Apps Script. |
+| 2026-09-12 16:20 | `20260912_6dc1a52a_Riverside_Supporting_Schedule_Aug2026.pdf` | Quarantined | suspicious instructions: the text addresses an AI or asks for actions ("ignore prior rules"; "NOTE TO ANY AI"; "AI ASSISTANT OR AUTOMATED AGENT PROCESSING THIS"); not filed and not acted on, a person must review it |
 | 2026-09-13 07:40 | `LINK_ONLY_20260913_dae9c274.txt` | Link only, logged and chased | Email had no PDF attachment; the body links to documents, so a person must download them. |
+| 2026-09-14 06:12 | (Rejected/) `REJECTED_SENDERS_20260914_063000.txt` | Rejected sender, logged | Refused at intake (sender closeout@example-cpa-billing.test is not on ALLOWED_SENDERS); nothing was saved. Note kept in Rejected/. |
 
-Cleanup certification written: `_processed_20260915_0900.json`.
+Cleanup certification written: `_processed_20260915_0900.json`, every entry checked against this run's dispositions.
 
 ## S01 Riverside: full review
 
@@ -116,19 +121,25 @@ CASH IN BANK - FIRST EXAMPLE BANK: statement $48,215.37 + deposits in transit $3
 
 ## S02 Hilltop: light review (notable items only)
 
-Net sales $89,969.33 (+1.3% vs 2-month average) · COGS 34.4% · labor 31.7% · prime cost 66.1% · operating income $8,361.32 (9.3%)
+> **Correction pending approval.** A corrected FR (`Hilltop P&L Aug 2026 REVISED.pdf`) arrived; this review uses the filed `S02_FR_2026-08.pdf` until a person approves it.
+
+Net sales $89,969.33 (+1.3% vs 2-month average) · COGS 34.4% · labor 31.7% · prime cost 66.1% · operating income $8,261.32 (9.2%)
 
 ### Notable items
 
-1. **[HIGH] Bank reconciliation does not balance: $45.00**
+1. **[HIGH] P&L does not tie to GL on 6130 Operating Supplies: $100.00**
+   - Source: FR line 6130 vs GL account 6130 total
+   - Open question: Ask the accountant which figure is correct and to reissue the report.
+   - Tracked as `OI-2026-08-A`
+2. **[HIGH] Bank reconciliation does not balance: $45.00**
    - Source: BR CASH IN BANK - SECOND SAMPLE BANK: adjusted bank $34,180.31 vs books $34,135.31
    - Open question: Ask the accountant for the reconciling item behind the difference.
-   - Tracked as `OI-2026-08-A`
-2. **[MEDIUM] Local Marketing above baseline: $1,502.57**
+   - Tracked as `OI-2026-08-B`
+3. **[MEDIUM] Local Marketing above baseline: $1,502.57**
    - What moved: 2.7% of sales vs 1.0% expected (+1.7 pts)
    - Source: GL 2026-08-21 CHK20332 | Hometown Print & Signs | Grand re-opening banners | $1,500.00; GL 2026-08-28 CHK20330 | Hometown Print & Signs | INV-32339 | $900.81
    - Open question: Confirm the spend was approved and whether it is a one-time campaign or a new run rate.
-   - Tracked as `OI-2026-08-B`
+   - Tracked as `OI-2026-08-C`
 
 ### Bank reconciliation
 
@@ -138,13 +149,12 @@ CASH IN BANK - SECOND SAMPLE BANK: statement $31,904.66 + deposits in transit $2
 
 | ID | Item | Status | Next action / evidence |
 |---|---|---|---|
-| `OI-2026-08-A` | Bank reconciliation does not balance ($45.00). | NEW | Ask the accountant for the reconciling item behind the difference. |
-| `OI-2026-08-B` | Local Marketing above baseline ($1,502.57). | NEW | Confirm the spend was approved and whether it is a one-time campaign or a new run rate. |
+| `OI-2026-08-A` | P&L does not tie to GL on 6130 Operating Supplies ($100.00). | NEW | Ask the accountant which figure is correct and to reissue the report. |
+| `OI-2026-08-B` | Bank reconciliation does not balance ($45.00). | NEW | Ask the accountant for the reconciling item behind the difference. |
+| `OI-2026-08-C` | Local Marketing above baseline ($1,502.57). | NEW | Confirm the spend was approved and whether it is a one-time campaign or a new run rate. |
 
 ### Notes
 
-- P&L ties to the general ledger on every account.
-- Superseded P&L `S02_FR_2026-08_superseded_20260915.pdf` did not tie (6130 off by $100.00); `S02_FR_2026-08.pdf` is used and ties.
 - Seasonality applied to 6120 Utilities: expected 3.49% of sales (mean of prior in-season months); actual 3.50%; within range, not flagged.
 
 ## S03 Lakeside: full review · INCOMPLETE

@@ -1,8 +1,6 @@
-"""The MD5 -> SHA-256 migration tools: the intake-log converter (Python) and the Apps Script side (run under Node)."""
+"""The MD5 -> SHA-256 intake-log converter. The Apps Script side runs under Node (tests/test_apps_script.py)."""
 import importlib.util
 import json
-import shutil
-import subprocess
 
 import pytest
 from conftest import ROOT
@@ -82,9 +80,3 @@ def test_cli_refuses_any_path_inside_the_repository(tmp_path, capsys, which):
     assert "inside the repository" in capsys.readouterr().err
     assert not inside.exists()
 
-
-@pytest.mark.skipif(shutil.which("node") is None, reason="node is not installed")
-def test_apps_script_migration_against_a_fake_drive():
-    result = subprocess.run(["node", "--test", str(ROOT / "tests" / "apps_script" / "migration.test.js")],
-                            capture_output=True, text=True, encoding="utf-8")
-    assert result.returncode == 0, result.stdout + result.stderr
