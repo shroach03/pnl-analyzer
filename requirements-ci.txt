@@ -22,7 +22,7 @@ pypdfium2==5.14.0
 pytest==9.1.1
 referencing==0.37.0
 reportlab==5.0.1
-rpds-py==0.30.0
+rpds-py==2026.9.1
 ruff==0.16.10
 setuptools==84.0.0
 typing-extensions==4.16.0
