@@ -106,7 +106,7 @@ For how the agent writes up a single store, see the [worked example](agent/templ
 
 ## Run the demo
 
-Requires Python 3.10+ (and Node, only for the registry validator).
+Requires Python 3.11+ (and Node, only for the registry validator).
 
 **Windows:** run the commands below in **Git Bash** (installed with [Git for Windows](https://gitforwindows.org/)) or WSL, because `scripts/run_demo.sh` is a bash script. Everything else (`pip`, `pytest`, `ruff`, `python -m pnl_analyzer.run`) works in any shell. macOS and Linux need nothing extra.
 
