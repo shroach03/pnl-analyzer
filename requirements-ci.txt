@@ -8,7 +8,7 @@ cffi==2.1.1
 charset-normalizer==3.5.2
 colorama==0.4.6
 cryptography==50.0.2
-iniconfig==2.3.0
+iniconfig==2.3.1
 jsonschema-specifications==2025.9.1
 jsonschema==4.26.0
 packaging==26.3
@@ -16,13 +16,13 @@ pdfminer.six==20260107
 pdfplumber==0.11.10
 pillow==12.3.0
 pluggy==1.6.0
-pycparser==3.0
+pycparser==3.11
 pygments==2.21.0
 pypdfium2==5.14.0
 pytest==9.1.1
 referencing==0.37.0
 reportlab==5.0.1
 rpds-py==2026.9.1
-ruff==0.16.10
+ruff==0.17.0
 setuptools==84.0.0
 typing-extensions==4.16.0
